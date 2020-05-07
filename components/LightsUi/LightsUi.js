@@ -97,7 +97,7 @@ const handleToggleLight = (event, name) => {
                   var lights = data_lights.filter((item, i)=> _switch.id == item.switch_id);
 
                   return(<SwitchComponent type={_switch.type} array_index={_switch.array_index} id={_switch.id} name={_switch.name} description={_switch.description}
-                                      lights={lights} handleToggleLight={handleToggleLight}/>);
+                                      lights={lights} data_switch={data_switch[_switch.array_index]} handleToggleLight={handleToggleLight}/>);
                   
                 }
               )}

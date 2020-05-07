@@ -145,12 +145,9 @@ const writeToPort = function(command, switch_id, data ) {
     }
     //Switch Id
     if(switch_id){
-        console.log("Before toString", switch_id);
         switch_id = switch_id.toString();
-        console.log("After toString", switch_id);
         while(switch_id.length < 3){
             switch_id =  "0" + switch_id
-            console.log("After while", switch_id);
         }
 
     }

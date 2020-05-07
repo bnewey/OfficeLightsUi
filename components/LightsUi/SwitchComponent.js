@@ -9,6 +9,7 @@ import {Paper,  ButtonGroup, Button} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { mergeClasses } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 import { textAlign } from '@material-ui/system';
@@ -19,7 +20,7 @@ import cogoToast from 'cogo-toast';
 
 const SwitchComponent = (props) => {
     
-    const {name, description, type, array_index, id, lights, handleToggleLight} = props;
+    const {name, description, type, array_index, id, lights,data_switch, handleToggleLight} = props;
     
 
     //only works inside a functional component
@@ -28,14 +29,15 @@ const SwitchComponent = (props) => {
 
     return (
         <div className={classes.light_div}>
+                {/*SWITCH*/}
                 <span className={classes.light_label_off}>Switch: {name}</span>
                 <Button size="small" className={classes.toggle_button} onClick={event=> handleToggleLight(event, id)}>Toggle</Button>
+                {/* LIGHTS */}
                 { lights && lights.length > 0 ?
                     
                     <>
-                    {
+                    {   //Return 'light div' for each light
                         lights.map((light, i)=>(<>
-                            <br/>
                             <span className={light.value == 0 ? classes.light_label_off : classes.light_label_on}>Light {i+1}</span>
                             </>
                         ))
@@ -44,6 +46,29 @@ const SwitchComponent = (props) => {
                     </>
                     :
                     <><span>No Lights</span></>
+                }
+                {/* TIMERS*/}
+                {data_switch && data_switch.move_timer > 0 ? 
+                  <>  
+                    <div className={classes.linearProgress}>
+                      <span>Motion:</span>
+                      <LinearProgress variant="determinate" value={(data_switch.move_timer/900)*100} />
+                      </div>
+                  </>
+                : <></>}
+                {data_switch && data_switch.toggle_timer > 0 ? 
+                  <>  
+                    <div className={classes.linearProgress}>
+                    <span>Toggle:</span>
+                      <LinearProgress variant="determinate" value={(data_switch.toggle_timer/900)*100} />
+                      </div>
+                  </>
+                : <></>}
+
+                {/* Motion Sensor */}
+                { data_switch && data_switch.switch_value == 1 ? 
+                  <> <div className={classes.motion_icon_div}></div></>
+                  : <></>
                 }
         </div>
     )
@@ -111,6 +136,29 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '-1px 1px 4px 0px #5f371b',
     margin: '0px 5px',
   },
+  linearProgress: {
+    '& .MuiLinearProgress-root':{
+      height: '10px',
+    },
+    display:'flex',
+    flexDirection:'column',
+    margin:'0px 1%',
+    width: '5%',
+    '& > * + *': {
+      
+    },
+  },
+  motion_icon_div:{
+    backgroundImage: 'url(/static/motion_green.png)',
+    backgroundRepeat:'no-repeat',
+    height: '20px',
+    width: '20px',
+    position: 'relative',
+    backgroundPosition: 'center',
+    backgroundSize: 'contain' ,
+    margin: '0 1%',
+    textAlign: 'center',
+  }
 
 
 }));
