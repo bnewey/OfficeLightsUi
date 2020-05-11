@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,useRef} from 'react';
 
 import Router, {useRouter} from 'next/router';
 
@@ -18,6 +18,7 @@ import Switch from '../../js/Switch';
 
 import cogoToast from 'cogo-toast';
 import SwitchComponent from './SwitchComponent';
+import Canvas from './Canvas';
 
 
 const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint}) => {
@@ -28,6 +29,7 @@ const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint}) => {
 
   //only works inside a functional component
   const classes = useStyles();
+
 
   useEffect(()=>{
     if(dbSwitchData ==null){
@@ -86,9 +88,11 @@ const handleToggleLight = (event, name) => {
     <Paper classes={{root:classes.root}} className={classes.root}>
       
       <Grid container  spacing={2} justify="center" className={classes.container}>
-        
       </Grid>
-      
+      <Grid container  spacing={2} justify="center" className={classes.floorplan_container}>
+          <Canvas dbSwitchData={dbSwitchData} data_lights={data_lights} data_switch={data_switch} socket={socket}  endpoint={endpoint} handleToggleLight={handleToggleLight}/>
+      </Grid>
+
       <Grid container  spacing={2} justify="center" className={classes.light_container}>
           { dbSwitchData ? //&& dbSwitchData.error != 1 ?
               <>
@@ -122,6 +126,8 @@ const handleToggleLight = (event, name) => {
 
 
     </Paper>
+
+    
   )
 }
 
@@ -183,11 +189,28 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   light_container:{
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#ecececec',
+    backgroundColor: '#fff3da91',
     margin: '1%',
     padding: '1%',
+    boxShadow: 'inset 0px 0px 8px 2px rgba(67, 67, 67, 0.2)',
+  },
+  floorplan_container:{
+    backgroundImage: 'url(/static/buildingv2b.png)',
+    backgroundRepeat:'no-repeat',
+    height: '800px',
+    width: '1600px',
+    position: 'relative',
+    backgroundPosition: 'center',
+    backgroundSize: 'contain' ,
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff3da91',
+    margin: '1%',
+    padding: '1%',
+    boxShadow: 'inset 0px 0px 8px 2px rgba(67, 67, 67, 0.2)',
   },
   toggle_button:{
     flexBasis: '8%',

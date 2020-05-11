@@ -8,7 +8,7 @@ const database = require('./db');
 
 router.post('/getSwitchVariables', async (req,res) => {
 
-    const sql = 'select s.id , s.array_index, s.type , s.name, s.description ' +
+    const sql = 'select s.id , s.array_index, s.type , s.name, s.description, s.x1, s.x2, s.y1, s.y2 ' +
     ' from switches s ORDER BY s.id';
 
     try{
