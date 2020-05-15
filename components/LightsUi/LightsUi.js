@@ -99,6 +99,8 @@ const handleToggleLight = (event, name) => {
               { dbSwitchData.map((_switch, i)=>{
                   //Return a component for each switch
                   var lights = data_lights.filter((item, i)=> _switch.id == item.switch_id);
+                  console.log("Lights", lights);
+                  console.log("Switch:", _switch);
 
                   return(<SwitchComponent type={_switch.type} array_index={_switch.array_index} id={_switch.id} name={_switch.name} description={_switch.description}
                                       lights={lights} data_switch={data_switch[_switch.array_index]} handleToggleLight={handleToggleLight}/>);
@@ -192,7 +194,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#fff3da91',
+    backgroundColor: '#f5f5f5',
     margin: '1%',
     padding: '1%',
     boxShadow: 'inset 0px 0px 8px 2px rgba(67, 67, 67, 0.2)',
@@ -208,7 +210,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff3da91',
-    margin: '1%',
+    margin: '25px 6px',
     padding: '1%',
     boxShadow: 'inset 0px 0px 8px 2px rgba(67, 67, 67, 0.2)',
   },

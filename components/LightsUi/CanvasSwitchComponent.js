@@ -36,13 +36,18 @@ const CanvasSwitchComponent = (props) => {
                 console.log("Pending change still going on", lights[0].value)
             }
         }
-    },[lights])
+    },[lights]);
 
     //only works inside a functional component
     const classes = useStyles({...props, pendingChange});
 
 
     const handleToggleCSC = (event, id, fn) =>{
+        if(lights[0] == null){
+            cogoToast.error("No data being received");
+            return;
+        }
+        //Run given function and set pending
         fn(event,id);
         setPendingChange(true);
         setPendingChangeValue(lights[0].value);

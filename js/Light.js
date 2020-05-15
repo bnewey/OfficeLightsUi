@@ -21,26 +21,26 @@ async function getLightVariables(){
 
 }
 
-// async function setSwitchVariables( switchVariables){
-//     const route = '/switch/setSwitchVariables';
-//     try{
-//         var response = await fetch(route,
-//             {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify({ switchVariables: switchVariables})
-//             });
-//         return response.ok;
-//     }catch(error){
-//         console.log(error);
-//         throw error;
-//     }
+async function setLightVariables( lightVariables){
+    const route = '/light/setLightVariables';
+    try{
+        var response = await fetch(route,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lightVariables: lightVariables})
+            });
+        return response.ok;
+    }catch(error){
+        console.log(error);
+        throw error;
+    }
 
-// }
+}
 
 module.exports = {
     getLightVariables: getLightVariables,
-    // setLightVariables: setLightVariables,
+    setLightVariables: setLightVariables,
 };
