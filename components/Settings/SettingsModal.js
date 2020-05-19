@@ -53,6 +53,8 @@ const SettingsModal = (props) => {
             setShouldAskRestart(false);
             setModalOpen(false);
         }
+
+        //If data was saved or deleted
         if(shouldAskRestart){
             confirmAlert({
                 customUI: ({onClose}) => {
@@ -65,7 +67,6 @@ const SettingsModal = (props) => {
         }else{
             setModalOpen(false);
         }
-
 
         
     };

@@ -18,7 +18,7 @@ import Switch from '../../js/Switch';
 const SettingsGroup = (props) => {
 
     const {endpoint, socket,modalOpen, settingName, handler, tableConfig, width, setShouldAskRestart} = props;
-    const classes = useStyles(props);
+    
     
     //Functional State
     const [shouldSave, setShouldSave] = React.useState(false);
@@ -28,6 +28,7 @@ const SettingsGroup = (props) => {
     const [addDialogOpen, setAddDialogOpen] = React.useState(false);
     const [addDialogVariables, setAddDialogVariables] = React.useState({});
 
+    const classes = useStyles({...props, shouldSave});
 
     useEffect(()=>{
         if( ( modalOpen && (!settingVariables || settingVariables == [])  ) || shouldRefetch) {
@@ -56,8 +57,12 @@ const SettingsGroup = (props) => {
 
 
 
-    const onChangeNumberValue = (event, id, setting) => {
-        
+    const onChangeNumberValue = (event, id, setting, type) => {
+        if(!(type == "number")){
+            console.error("Type is not a number");
+            cogoToast.error("Bad type");
+            return;
+        }
         let newValue = event.target.value;
         if(newValue == null ){
             cogoToast.error(`Bad value!`, {hideAfter: 3});
@@ -87,6 +92,53 @@ const SettingsGroup = (props) => {
         }
         //Edit tmp array and set real array
         variableCopy[indexOfMV][setting] = parseInt(newValue,10);
+        setSettingVariables(variableCopy);
+        
+        //We should save if save is hit
+        setShouldSave(true);
+
+
+    }
+
+    const onChangeStringValue = (event, id, setting, type) => {
+       
+        if(!(type == "text")){
+            console.error("Type is not text");
+            cogoToast.error("Bad type");
+            setShouldSave(false);
+            return;
+        }
+        let newValue = event.target.value;
+        if(newValue == null ){
+            cogoToast.error(`Bad value!`, {hideAfter: 3});
+            setShouldSave(false);
+            return;
+        }
+        if(newValue.length == 0 || newValue.length > 30){
+            cogoToast.error(`Too big or too small text!`, {hideAfter: 3});
+            setShouldSave(false);
+            return;
+        }
+
+        //Get the index of our value to change
+        let indexOfMV;
+        settingVariables.map((item, i)=> {
+            if(item.id == id){
+                indexOfMV=i;
+                return true;
+            }
+        });
+
+        //Copy settingVariables to temp array
+        var variableCopy = [...settingVariables];
+
+        
+        if(indexOfMV == null){
+            cogoToast.error(`Couldnt find variable!`, {hideAfter: 3});
+            return;
+        }
+        //Edit tmp array and set real array
+        variableCopy[indexOfMV][setting] = newValue;
         setSettingVariables(variableCopy);
         
         //We should save if save is hit
@@ -233,7 +285,9 @@ const SettingsGroup = (props) => {
                                                             type={setting.type} 
                                                             id={`input-${setting.id}-i`}  
                                                             defaultValue={setting[item.setting]}
-                                                            onChange={event => onChangeNumberValue(event, setting.id, item.setting)}
+                                                            onChange={event => item.type == "text" ? 
+                                                                        onChangeStringValue(event, setting.id, item.setting, item.type) :
+                                                                        /*number*/ onChangeNumberValue(event, setting.id, item.setting, item.type)}
                                                         />
                                                     </div>
                                                 ))}
@@ -250,10 +304,10 @@ const SettingsGroup = (props) => {
                         </Grid>
             <Grid item xs={12} className={classes.paper}>
                 <div className={classes.footer_div}>
-                <Button className={classes.main_button} variant="contained" color="primary" onClick={event => openAddDialog(event)}>
+                <Button className={classes.add_button} variant="contained" color="primary" onClick={event => openAddDialog(event)}>
                     Add
                 </Button>
-                <Button className={classes.main_button} variant="contained" color="primary" onClick={event => handleSave(event, settingVariables)}>
+                <Button className={classes.save_button} variant="contained" color="primary" onClick={event => handleSave(event, settingVariables)}>
                     Save
                 </Button>
                 </div>
@@ -430,12 +484,23 @@ const useStyles = makeStyles(theme => ({
         width: '.7em',
         height: '.7em',
     },
-    main_button:{
+    save_button:{
         backgroundColor: '#0968cf',
         '&:hover':{
             backgroundColor: '#5096e2',
 
-        }
+        },
+        border: props=>props.shouldSave ? '2px solid #ff7600' : '',
+        color: props=>props.shouldSave ? '#ffc797' : '',
+
+    },
+    add_button:{
+        backgroundColor: '#0968cf',
+        '&:hover':{
+            backgroundColor: '#5096e2',
+
+        },
+
     },
     //Dialog CSS
     dialogTitle:{

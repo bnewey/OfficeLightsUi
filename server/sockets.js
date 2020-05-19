@@ -34,7 +34,7 @@ exports.setupIo = function(server, HOST, SOCKET_PORT){
                  writeToPort("05", array_index, null);
              });
         socket.on("RestartOfficeLights", () => {
-            logger.info(`Array Index: ${array_index} | Toggle Light `);
+            logger.info(` Restart C++ | Restarting OfficeLights `);
             writeToPort("99", null, null);
         });
 
