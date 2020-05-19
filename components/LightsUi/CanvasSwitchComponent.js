@@ -51,7 +51,6 @@ const CanvasSwitchComponent = (props) => {
         fn(event,id);
         setPendingChange(true);
         setPendingChangeValue(lights[0].value);
-        console.log("Setting pending change", lights[0].value);
     }
 
     
@@ -219,7 +218,7 @@ const useStyles = makeStyles(theme => ({
   switchComponent:{
     position: 'absolute',
     cursor: 'pointer',
-    background: props=> { console.log(props.pendingChange); return(props.lights && props.lights.length > 0 && props.lights[0].value == 1) 
+    background: props=> {  return(props.lights && props.lights.length > 0 && props.lights[0].value == 1) 
             ? ( props.pendingChange ? 'linear-gradient(45deg, #b3b3b3, #096f9aa6)' : 'linear-gradient(45deg, #008f8f94, #ddf5ffa6)' )
             : ( props.pendingChange ? 'linear-gradient(45deg, #b3b3b3, #096f9aa6)' : '#8e8e8eab' )},
     height: props => `${props.y2 - props.y1}%`,

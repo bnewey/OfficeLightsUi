@@ -15,6 +15,7 @@ import { Z_BLOCK } from 'zlib';
 
 import { textAlign } from '@material-ui/system';
 import Switch from '../../js/Switch';
+import Light from '../../js/Light';
 
 import cogoToast from 'cogo-toast';
 import SwitchComponent from './SwitchComponent';
@@ -33,7 +34,7 @@ const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint}) => {
 
   useEffect(()=>{
     if(dbSwitchData ==null){
-      Switch.getSwitchVariables()
+      Switch.getVariables()
         .then( data => { 
           setDbSwitchData(data);
         })
@@ -48,7 +49,7 @@ const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint}) => {
 
   useEffect(()=>{
     if(dbLightData ==null){
-      Switch.getSwitchVariables()
+      Light.getVariables()
         .then( data => { 
           setDbLightData(data);
         })
@@ -99,8 +100,6 @@ const handleToggleLight = (event, name) => {
               { dbSwitchData.map((_switch, i)=>{
                   //Return a component for each switch
                   var lights = data_lights.filter((item, i)=> _switch.id == item.switch_id);
-                  console.log("Lights", lights);
-                  console.log("Switch:", _switch);
 
                   return(<SwitchComponent type={_switch.type} array_index={_switch.array_index} id={_switch.id} name={_switch.name} description={_switch.description}
                                       lights={lights} data_switch={data_switch[_switch.array_index]} handleToggleLight={handleToggleLight}/>);

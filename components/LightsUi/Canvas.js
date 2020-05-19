@@ -11,37 +11,10 @@ const Canvas = ({dbSwitchData, data_lights, data_switch ,socket,  endpoint, hand
   const router = useRouter();
 
 
-  const [canvasLoaded, setCanvasLoaded] = useState(false);
   //only works inside a functional component
   const classes = useStyles();
 
-  const[canvasImgUrl, setCanvasImgUrl] = useState(null);
 
-  useEffect(()=>{
-    // if(!canvasLoaded){
-    //   const { createCanvas, loadImage } = require('canvas');
-    //   const canvas = createCanvas(1600 , 800)
-    //   const ctx = canvas.getContext('2d')
-      
-    //   // Draw line under text
-    //   var text = ctx.measureText('Awesome!')
-    //   ctx.strokeStyle = 'rgba(0,0,0,0.5)'
-    //   ctx.beginPath()
-    //   ctx.lineTo(50, 102)
-    //   ctx.lineTo(50 + text.width, 102)
-    //   ctx.stroke()
-      
-    //     //Draw image
-    //   loadImage('static/buildingv2b.png').then((image) => {
-    //     ctx.drawImage(image, 0, 0, 1600, 800)
-      
-    //     console.log('<img src="' + canvas.toDataURL() + '" />')
-    //     setCanvasImgUrl(canvas.toDataURL());
-    //   })
-
-    // }
-      setCanvasLoaded(true);
-  },[canvasLoaded])
 
   return (
     <>

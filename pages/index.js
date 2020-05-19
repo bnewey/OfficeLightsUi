@@ -6,14 +6,14 @@ import MainLayout from '../components/Layouts/Main';
 import LightsUi from '../components/LightsUi/LightsUi';
 import WithData from '../components/Machine/WithData';
 import ReconnectSnack from '../components/UI/ReconnectSnack';
-//import ModeSettingsModal from '../components/Settings/ModeSettingsModal';
+import SettingsModal from '../components/Settings/SettingsModal';
 
 const Index = function ({data_lights, data_switch, endpoint, socket, settings} ) {
 
     return (
         <MainLayout>
             <ReconnectSnack data_lights={data_lights} data_switch={data_switch} socket={socket} />
-            {/*<ModeSettingsModal endpoint={endpoint} socket={socket} />*/}
+            <SettingsModal endpoint={endpoint} socket={socket} />
 
 
             <LightsUi data_lights={data_lights} data_switch={data_switch} socket={socket} endpoint={endpoint}/>

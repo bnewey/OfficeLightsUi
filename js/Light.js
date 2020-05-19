@@ -1,6 +1,6 @@
 import 'isomorphic-unfetch';
 
-async function getLightVariables(){
+async function getVariables(){
     const route = '/light/getLightVariables';
     try{
         var data = await fetch(route,
@@ -21,7 +21,7 @@ async function getLightVariables(){
 
 }
 
-async function setLightVariables( lightVariables){
+async function setVariables( lightVariables){
     const route = '/light/setLightVariables';
     try{
         var response = await fetch(route,
@@ -40,7 +40,45 @@ async function setLightVariables( lightVariables){
 
 }
 
+async function addVariable(lightVariable){
+    const route = '/light/addLightVariable';
+    try {
+        var response = await fetch(route,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lightVariable: lightVariable})
+            });
+        return response.ok;
+    }catch (error) {
+        console.log(error);
+        throw error; 
+    }
+}
+
+async function removeVariable(lightVariable_id){
+    const route = '/light/removeLightVariable';
+    try {
+        var response = await fetch(route,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: lightVariable_id})
+            });
+        return response.ok;
+    }catch (error) {
+        console.log(error);
+        throw error; 
+    }
+}
+
 module.exports = {
-    getLightVariables: getLightVariables,
-    setLightVariables: setLightVariables,
+    getVariables: getVariables,
+    setVariables: setVariables,
+    addVariable: addVariable,
+    removeVariable: removeVariable,
 };

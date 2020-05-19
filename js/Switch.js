@@ -1,6 +1,6 @@
 import 'isomorphic-unfetch';
 
-async function getSwitchVariables(){
+async function getVariables(){
     const route = '/switch/getSwitchVariables';
     try{
         var data = await fetch(route,
@@ -21,7 +21,7 @@ async function getSwitchVariables(){
 
 }
 
-async function setSwitchVariables( switchVariables){
+async function setVariables( switchVariables){
     const route = '/switch/setSwitchVariables';
     try{
         var response = await fetch(route,
@@ -40,7 +40,45 @@ async function setSwitchVariables( switchVariables){
 
 }
 
+async function addVariable(switchVariable){
+    const route = '/switch/addSwitchVariable';
+    try {
+        var response = await fetch(route,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ switchVariable: switchVariable})
+            });
+        return response.ok;
+    }catch (error) {
+        console.log(error);
+        throw error; 
+    }
+}
+
+async function removeVariable(switchVariable_id){
+    const route = '/switch/removeSwitchVariable';
+    try {
+        var response = await fetch(route,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: switchVariable_id})
+            });
+        return response.ok;
+    }catch (error) {
+        console.log(error);
+        throw error; 
+    }
+}
+
 module.exports = {
-    getSwitchVariables: getSwitchVariables,
-    setSwitchVariables: setSwitchVariables,
+    getVariables: getVariables,
+    setVariables: setVariables,
+    addVariable: addVariable,
+    removeVariable: removeVariable,
 };
