@@ -33,6 +33,10 @@ exports.setupIo = function(server, HOST, SOCKET_PORT){
                  logger.info(`Array Index: ${array_index} | Toggle Light `);
                  writeToPort("05", array_index, null);
              });
+        socket.on("RestartOfficeLights", () => {
+            logger.info(`Array Index: ${array_index} | Toggle Light `);
+            writeToPort("99", null, null);
+        });
 
         socket.on("disconnect", () => {
             logger.verbose(`Client disconnected Socket #${socket.id}`);

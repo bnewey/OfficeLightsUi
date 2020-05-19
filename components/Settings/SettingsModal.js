@@ -49,7 +49,7 @@ const SettingsModal = (props) => {
 
     const handleModalClose = () => {
         const pollRestart = () =>{
-            socket.emit('RestartNitrogen', "RestartNitrogen");
+            socket.emit('RestartOfficeLights', "RestartOfficeLights");
             setShouldAskRestart(false);
             setModalOpen(false);
         }
