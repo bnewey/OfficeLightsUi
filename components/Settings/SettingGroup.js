@@ -143,8 +143,8 @@ const SettingsGroup = (props) => {
         
         //We should save if save is hit
         setShouldSave(true);
-
-
+    
+    
     }
 
     const handleSave = (event, arrayToSave) =>{
