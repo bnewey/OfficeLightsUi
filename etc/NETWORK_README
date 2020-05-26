@@ -1,0 +1,10 @@
+officelights_internet_down = adds local ip and restarts UI
+---------------------------
+copy to /etc/network/if-post-down.d/
+
+
+officelights_internet_up  = removes local ip and restarts UI
+---------------------------
+copy to /etc/network/if-up.d/
+
+

@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "Starting removing lo addr and restarting UI"
+
+# Only run on wlp2s0 wireless or enp3s0 ethernet interfaces
+[ "$IFACE" == "wlp2s0" ] || [ "$IFACE" == "enp3s0" ] || exit 0
+
+ip addr del 10.0.0.84/24 dev lo
+systemctl restart officelights_ui.service
+echo "Successfully removed 10.0.0.84/24 from lo and restarted"
+exit 1
+

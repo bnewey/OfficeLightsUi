@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Starting adding to lo"
+
+# Only run on wlp2s0 wireless or enp3s0 ethernet interfaces
+[ "$IFACE" == "wlp2s0" ] || [ "$IFACE" == "enp3s0" ] || exit 0
+
+ip addr add 10.0.0.84/24 dev lo &&
+systemctl restart officelights_ui.service
+echo "Successfully added 10.0.0.84/24 to lo"
+exit 1
