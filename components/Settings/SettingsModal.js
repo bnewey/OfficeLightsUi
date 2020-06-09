@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 
-import {makeStyles,Fab, Modal, Backdrop, Fade, Grid, TextField, Button} from '@material-ui/core';
+import {makeStyles,Fab, Modal, Backdrop, Fade, Grid, TextField, Button, Paper, Tab, Tabs} from '@material-ui/core';
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -19,20 +19,24 @@ const tableConfig =
         { "setting": "name", "type": "text", "description": "Switch name"},
         { "setting": "array_index", "type": "number", "description": "Switches will have array index between 0-150"},
         { "setting": "type", "type": "number", "description": "Type=0 means single switch, Type=1 means double switch"},
+        { "setting": "x1", "type": "float", "description": "left x location"},
+        { "setting": "x2", "type": "float", "description": "right x location"},
+        { "setting": "y1", "type": "float", "description": "Top y location"},
+        { "setting": "y2", "type": "float", "description": "Bottom y location"},
     ],
     "Lights": [
         { "setting": "name", "type": "text", "description": "Light name"},
         { "setting": "array_index", "type": "number", "description": "Lights will have array index between 151-300"},
         { "setting": "type", "type": "number", "description": "Type = 0 for now"},
         { "setting": "switch_id", "type": "number", "description": "Switch that this light belongs to. If Dbl Switch, put first id, the second is +1"}
-    ]
+    ],
 } 
     
 
 
 const SettingsModal = (props) => {
 
-    const {endpoint, socket} = props;
+    const {endpoint, socket, setShouldResetData} = props;
     const classes = useStyles();
 
     //Modal Props
@@ -42,6 +46,7 @@ const SettingsModal = (props) => {
     const [switchVariables, setSwitchVariables] = React.useState(null);
     const [lightVariables, setLightVariables] = React.useState(null);
     const [shouldAskRestart, setShouldAskRestart] = React.useState(false);
+    const [tabValue, setTabValue] = React.useState(0);
 
     const handleModalOpen = (event) => {
         setModalOpen(true);
@@ -52,6 +57,7 @@ const SettingsModal = (props) => {
             socket.emit('RestartOfficeLights', "RestartOfficeLights");
             setShouldAskRestart(false);
             setModalOpen(false);
+            setShouldResetData(true);
         }
 
         //If data was saved or deleted
@@ -63,12 +69,15 @@ const SettingsModal = (props) => {
                     );
                 }
             });
-
         }else{
             setModalOpen(false);
         }
 
         
+    };
+
+    const handleTabChange = (event, newValue) => {
+        setTabValue(newValue);
     };
 
 
@@ -98,13 +107,26 @@ const SettingsModal = (props) => {
                         </span>
                     </div>
                     <Grid item xs={12} className={classes.paper}>
+                    <Tabs
+                        value={tabValue}
+                        onChange={handleTabChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        centered
+                    >
+                        <Tab label="Lights/Switch" />
+                    </Tabs>
+
+                        {tabValue == 0 ?
                         <div className={classes.form_container}>
                             
                             <SettingGroup endpoint={endpoint} socket={socket} modalOpen={modalOpen} settingName={"Switch"} handler={Switch}
-                                     tableConfig={tableConfig.Switches} width={25} setShouldAskRestart={setShouldAskRestart}/>
+                                     tableConfig={tableConfig.Switches} width={35} setShouldAskRestart={setShouldAskRestart}/>
                             <SettingGroup endpoint={endpoint} socket={socket} modalOpen={modalOpen} settingName={"Light"} handler={Light}
                                      tableConfig={tableConfig.Lights} width={30} setShouldAskRestart={setShouldAskRestart}/>
-                        </div>
+                        </div>: <></> }
+                        
+                    
                     </Grid>
                     <Grid item xs={12} className={classes.paper}>
                         <div className={classes.footer_div}>

@@ -53,6 +53,11 @@ nextApp
     app.use('/switch', switch_route);
     app.use('/light', light_route);
 
+    // app.get('/', (req, res) => {
+    //   const user = { email: 'team@builderbook.org' };
+    //   nextApp.render(req, res, '/', { user });
+    // });
+
     //This is how we can send variables like settings from mysql to nextjs
     // var settings = require('./settings.js');
     // app.get('/', (req, res) => {

@@ -8,12 +8,12 @@ import WithData from '../components/Machine/WithData';
 import ReconnectSnack from '../components/UI/ReconnectSnack';
 import SettingsModal from '../components/Settings/SettingsModal';
 
-const Index = function ({data_lights, data_switch, endpoint, socket, settings} ) {
+const Index = function ({data_lights, data_switch, endpoint, socket, settings, user} ) {
 
     return (
         <MainLayout>
             <ReconnectSnack data_lights={data_lights} data_switch={data_switch} socket={socket} />
-            <SettingsModal endpoint={endpoint} socket={socket} />
+            
 
 
             <LightsUi data_lights={data_lights} data_switch={data_switch} socket={socket} endpoint={endpoint}/>
@@ -23,16 +23,16 @@ const Index = function ({data_lights, data_switch, endpoint, socket, settings} )
 }
 
 //does work when were being passed props 
-Index.getInitialProps = async ({ query }) => ({ settings: query.settings });
+Index.getInitialProps = async (ctx) => ({ user: ctx.query.user });
 
 Index.propTypes = {
-  settings: PropTypes.shape({
-    results: PropTypes.array.isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
   }),
-};
-
-Index.defaultProps = {
-  settings: null,
-};
+ };
+ 
+ Index.defaultProps = {
+  user: null,
+ };
 
 export default WithData(Index);

@@ -19,6 +19,7 @@ import Light from '../../js/Light';
 
 import cogoToast from 'cogo-toast';
 import SwitchComponent from './SwitchComponent';
+import SettingsModal from '../Settings/SettingsModal';
 import Canvas from './Canvas';
 
 
@@ -27,6 +28,7 @@ const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint}) => {
 
   const [dbSwitchData, setDbSwitchData] = useState(null);
   const [dbLightData, setDbLightData] = useState(null);
+  const [shouldResetData, setShouldResetData] = useState(false);
 
   //only works inside a functional component
   const classes = useStyles();
@@ -62,6 +64,14 @@ const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint}) => {
     
   },[dbLightData]);
 
+  useEffect(()=> {
+    if(shouldResetData == true){
+      setDbLightData(null);
+      setDbSwitchData(null);
+      setShouldResetData(false);
+    }
+  },[shouldResetData])
+
 
 //   const handleStartClick = (event) =>{
 //       socket.emit('Turn On All Machines', "all_machines");
@@ -87,6 +97,7 @@ const handleToggleLight = (event, name) => {
 
   return (
     <Paper classes={{root:classes.root}} className={classes.root}>
+      <SettingsModal endpoint={endpoint} socket={socket} setShouldResetData={setShouldResetData}/>
       
       <Grid container  spacing={2} justify="center" className={classes.container}>
       </Grid>

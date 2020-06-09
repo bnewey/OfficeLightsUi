@@ -28,12 +28,12 @@ router.post('/setSwitchVariables', async (req,res) => {
         switchVariables = req.body.switchVariables;
     }
 
-    const sql = 'UPDATE switches SET name=?, array_index= ?, type=? WHERE id = ? ';
+    const sql = 'UPDATE switches SET name=?, array_index= ?, type=?, x1=?, x2=?,y1=?,y2=? WHERE id = ? ';
 
     async.forEachOf(switchVariables, async (setting, i, callback) => {
         //will automatically call callback after successful execution
         try{
-            const results = await database.query(sql, [setting.name, setting.array_index, setting.type, setting.id]);
+            const results = await database.query(sql, [setting.name, setting.array_index, setting.type, setting.x1, setting.x2, setting.y1, setting.y2, setting.id]);
             return;
         }
         catch(error){     

@@ -58,8 +58,8 @@ const SettingsGroup = (props) => {
 
 
     const onChangeNumberValue = (event, id, setting, type) => {
-        if(!(type == "number")){
-            console.error("Type is not a number");
+        if(!(type == "number" || type=="float")){
+            console.error("Type is not a number/float");
             cogoToast.error("Bad type");
             return;
         }
@@ -91,7 +91,12 @@ const SettingsGroup = (props) => {
             return;
         }
         //Edit tmp array and set real array
-        variableCopy[indexOfMV][setting] = parseInt(newValue,10);
+        if(type=="number"){
+            variableCopy[indexOfMV][setting] = parseInt(newValue,10);
+        }
+        if(type=="float"){
+            variableCopy[indexOfMV][setting] = parseFloat(newValue).toFixed(2);
+        }
         setSettingVariables(variableCopy);
         
         //We should save if save is hit

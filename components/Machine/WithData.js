@@ -20,22 +20,8 @@ function WithData(BaseComponent) {
       var endpoint = "10.0.0.109:" + ENDPOINT_PORT;
 
       this.state = {
-        data_lights: [
-        {array_index: 0, value: 0},  
-        {array_index: 1, value: 1},
-        {array_index: 2, value: 0},
-        {array_index: 3, value: 1},
-        {array_index: 4, value: 0}],
-        
-        //null,
-        data_switch: [
-        {array_index: 0, delay_timer: 10, mode: 1, move_timer:0, toggle_timer: 0},
-        {array_index: 1, delay_timer: 0, mode: 0, move_timer: 25, toggle_timer: 0},
-        {array_index: 2, delay_timer: 0, mode: 0, move_timer: 0, toggle_timer: 18},
-        {array_index: 3, delay_timer: 0, mode: 0, move_timer: 0, toggle_timer: 0},
-        {array_index: 4, delay_timer: 0, mode: 0, move_timer: 0, toggle_timer: 0}
-        ],
-        //null,
+        data_lights: null,
+        data_switch: null,
         endpoint: endpoint,
         socket: socketIOClient(endpoint)
       };      
