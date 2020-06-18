@@ -10,6 +10,13 @@ const {ENDPOINT_PORT} = publicRuntimeConfig;
 // High Order Component that wraps around a page component 
 //to recieve rows/socket/endpoint AKA connectivity to c++ and nodejs
 //************************************************ */
+
+
+// COMPONENT NOT IN USE !!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+//
+//
+/////
+
 function WithData(BaseComponent) {
   class App extends React.Component {
     _isMounted = false;
@@ -23,7 +30,7 @@ function WithData(BaseComponent) {
         data_lights: null,
         data_switch: null,
         endpoint: endpoint,
-        socket: socketIOClient(endpoint)
+        socket: socketIOClient(endpoint),
       };      
     }
 
@@ -37,7 +44,6 @@ function WithData(BaseComponent) {
             try{
               var json = await JSON.parse(data);
               this.setState({ data_lights: json.lightsData, data_switch: json.switchData });
-              
             }
             catch(error){
               console.log(error);
@@ -45,6 +51,12 @@ function WithData(BaseComponent) {
           }
       }); 
     }
+
+    // shouldComponentUpdate(nextProps) {
+    //   const differentLights = this.props.data_lights !== nextProps.data_lights;
+    //   const differentSwitch = this.props.data_switch !== nextProps.data_switch;
+    //   return differentLights || differentSwitch;
+    // }
 
     componentWillUnmount(){
         this._isMounted = false;

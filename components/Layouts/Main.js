@@ -2,24 +2,15 @@ import Head from 'next/head'
 import Wrapper from '../Machine/Wrapper'
 import Nav from '../Nav';
 import StyledFooter from '../Footer'
-import navButtons from "../../config/buttons";
 import { Component } from 'react';
 
-import {styled} from '@material-ui/core/styles';
-
-const StyledNav = styled(Nav)({
-  display: 'flex',
-  background: '#0968cf',
-});
-
-
+import Header from "../UI/Header";
 
 
  export default class Layout extends React.Component {
     constructor(props){
       super(props);
     }
-
 
 
    render(){
@@ -32,10 +23,6 @@ const StyledNav = styled(Nav)({
             <title>{title}</title>
             
           </Head>
-          <header>
-            
-            <StyledNav navButtons={navButtons} />
-          </header>
           
           <main className='main-wrapper'>
             { children }

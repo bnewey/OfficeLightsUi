@@ -18,7 +18,6 @@ async function getVariables(){
     }catch(error){
         throw error;
     }
-
 }
 
 async function setVariables( lightVariables){

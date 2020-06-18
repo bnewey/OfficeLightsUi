@@ -75,7 +75,7 @@ const SettingsGroup = (props) => {
 
         //Get the index of our value to change
         let indexOfMV;
-        settingVariables.map((item, i)=> {
+        settingVariables.forEach((item, i)=> {
             if(item.id == id){
                 indexOfMV=i;
                 return true;
@@ -127,7 +127,7 @@ const SettingsGroup = (props) => {
 
         //Get the index of our value to change
         let indexOfMV;
-        settingVariables.map((item, i)=> {
+        settingVariables.forEach((item, i)=> {
             if(item.id == id){
                 indexOfMV=i;
                 return true;
@@ -265,7 +265,7 @@ const SettingsGroup = (props) => {
                                     {/* Column Head */}
                                     <div className={classes.flex_container_div}>
                                         {tableConfig.map((item,i)=>(
-                                            <div className={ item.setting == "name" ? classes.column_head_name : classes.column_head_div} style={{textAlign: 'center'}}>
+                                            <div key={'setting'+i} className={ item.setting == "name" ? classes.column_head_name : classes.column_head_div} style={{textAlign: 'center'}}>
                                                 <Tooltip title={item.description} placement="top">
                                                 <span>{item.setting}</span> 
                                                 </Tooltip>
@@ -280,9 +280,8 @@ const SettingsGroup = (props) => {
                                     </div>
                                     {/* Variables */}
                                     { settingVariables.map((setting, i)=>{
-                                        return(
-                                        <>                                        
-                                        <div className={classes.flex_container_div}>
+                                        return(                               
+                                        <div key={'setting variables' + i} className={classes.flex_container_div}>
                                             
                                                 {tableConfig.map((item, i)=> (
                                                     <div className={ item.setting == "name" ? classes.label_div : classes.input_div}>
@@ -301,7 +300,6 @@ const SettingsGroup = (props) => {
                                                     <span className={classes.delete_span}><DeleteIcon classes={{root: classes.trash_icon}}/></span>
                                                 </div>
                                         </div> 
-                                        </>
                                     )})}
                             </div>
                             
@@ -329,7 +327,7 @@ const SettingsGroup = (props) => {
                                         {/* Column Head */}
                                         <div className={classes.flex_container_div}>
                                             {tableConfig.map((item,i)=>(
-                                                <div className={item.setting == "name" ? classes.column_head_name : classes.column_head_div} style={{textAlign: 'center'}}>
+                                                <div key={'tooltip'+i} className={item.setting == "name" ? classes.column_head_name : classes.column_head_div} style={{textAlign: 'center'}}>
                                                     <Tooltip title={item.description} placement="top">
                                                     <span>{item.setting}</span> 
                                                     </Tooltip>
@@ -341,7 +339,7 @@ const SettingsGroup = (props) => {
                                         {/* Variables */}
                                             <div className={classes.flex_container_div}>
                                                     {tableConfig.map((item, i)=> (
-                                                        <div className={ item.setting == "name" ? classes.label_div : classes.input_div}>
+                                                        <div key={'setting'+i} className={ item.setting == "name" ? classes.label_div : classes.input_div}>
                                                             <input className={item.setting == "name" ? classes.input_label : classes.input} 
                                                                 type={item.type}
                                                                 value={addDialogVariables[item.setting]}

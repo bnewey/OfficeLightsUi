@@ -27,7 +27,7 @@ const Canvas = ({dbSwitchData, data_lights, data_switch ,socket,  endpoint, hand
                         { dbSwitchData.map((_switch, i)=> {
                                 var lights = data_lights.filter((item, i)=> _switch.id == item.switch_id);
 
-                                return( <><CanvasSwitchComponent type={_switch.type} array_index={_switch.array_index} id={_switch.id} name={_switch.name} description={_switch.description}
+                                return( <><CanvasSwitchComponent key={_switch.array_index} type={_switch.type} array_index={_switch.array_index} id={_switch.id} name={_switch.name} description={_switch.description}
                                       lights={lights} data_switch={data_switch[_switch.array_index]} handleToggleLight={handleToggleLight} x1={_switch.x1} x2={_switch.x2} y1={_switch.y1} y2={_switch.y2} /></>);
                             }) }
                         </>

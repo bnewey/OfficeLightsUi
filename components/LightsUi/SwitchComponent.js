@@ -38,7 +38,7 @@ const SwitchComponent = (props) => {
                     <>
                     {   //Return 'light div' for each light
                         lights.map((light, i)=>(<>
-                            <span className={light.value == 0 ? classes.light_label_off : classes.light_label_on}>Light {i+1}</span>
+                            <span key={'light'+i+1} className={light.value == 0 ? classes.light_label_off : classes.light_label_on}>Light {i+1}</span>
                             </>
                         ))
                     }  

@@ -23,7 +23,7 @@ import SettingsModal from '../Settings/SettingsModal';
 import Canvas from './Canvas';
 
 
-const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint}) => {
+const UiTableWithStyles = ({data_lights, data_switch ,socket,  endpoint, user}) => {
   const router = useRouter();
 
   const [dbSwitchData, setDbSwitchData] = useState(null);
